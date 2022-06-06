@@ -9,7 +9,7 @@ auth = Blueprint("auth", __name__)
 
 #NEVER STORE PLAIN TEXT PASSWORDS!!!
 
-@auth.route("/login")
+@auth.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get("email")
