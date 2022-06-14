@@ -9,7 +9,7 @@ auth = Blueprint("auth", __name__)
 
 #NEVER STORE PLAIN TEXT PASSWORDS!!!
 
-@auth.route("/login")
+@auth.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get("email")
@@ -27,7 +27,7 @@ def login():
             flash('Email does not exist', category='error')
             
 
-    return render_template("login.html", methods=['GET', 'POST'])
+    return render_template("login.html", user=current_user)
 
 @auth.route("/sign-up", methods=['GET', 'POST'])
 def sign_up():
@@ -59,7 +59,7 @@ def sign_up():
             flash('User created!')
             return redirect(url_for('views.home'))
 
-    return render_template("signup.html")
+    return render_template("signup.html", user=current_user)
 
 @auth.route("/logout")
 @login_required
